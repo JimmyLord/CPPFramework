@@ -10,15 +10,17 @@ varying vec2 v_UVCoord; // Output to frag shader.
 
 void main()
 {
+    // Object Scale.
+    // Object tranlation.
     vec2 pos = a_Position;
-    
-    pos *= 1; // Object Scale.
+    pos *= 1;               
+    pos += u_ObjectPos;     
 
-    pos += u_ObjectPos;
+    // Apply camera translation.
+    pos -= vec2( 5, 5 );
 
-    // Transformation from 0->10 Game world space to -1->1 clip space.
-    pos /= 5.0;
-    pos -= 1.0;
+    // Scale into clip space.
+    pos /= vec2( 5, 5 );
 
     v_UVCoord = a_UVCoord * u_UVScale + u_UVOffset;
 

@@ -30,6 +30,7 @@
 #include "GL/WGLExtensions.h"
 
 #include "../Libraries/imgui/imgui.h"
+#include "../Libraries/rapidjson/document.h"
 
 #include "Memory/MyMemory.h"
 
