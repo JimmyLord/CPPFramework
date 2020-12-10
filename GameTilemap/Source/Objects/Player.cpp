@@ -55,4 +55,31 @@ void Player::Update(float deltaTime)
             m_Position.x = 8;
         }
     }
+
+    (this->*m_pCurrentStateFunction)( deltaTime );
+}
+
+void Player::AIState_Idle(float deltaTime)
+{
+    ImGui::Text( "Idle" );
+    m_IdleTimer += deltaTime;
+    if( m_IdleTimer > 1 )
+    {
+        m_pCurrentStateFunction = &Player::AIState_Shaking;
+        m_IdleTimer = 0;
+    }
+}
+
+void Player::AIState_Shaking(float deltaTime)
+{
+    ImGui::Text( "Shaking" );
+    m_Position.x += (((rand()%RAND_MAX)/(float)RAND_MAX) * 2 - 1) * 0.05f;
+    m_Position.y += (((rand()%RAND_MAX)/(float)RAND_MAX) * 2 - 1) * 0.05f;
+
+    m_ShakingTimer += deltaTime;
+    if( m_ShakingTimer > 1 )
+    {
+        m_pCurrentStateFunction = &Player::AIState_Idle;
+        m_ShakingTimer = 0;
+    }
 }
