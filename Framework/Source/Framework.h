@@ -13,6 +13,7 @@
 #include "EventSystem/Event.h"
 #include "EventSystem/EventManager.h"
 #include "Math/Vector.h"
+#include "Objects/Camera.h"
 #include "Objects/GameObject.h"
 #include "Objects/Mesh.h"
 #include "Objects/Texture.h"

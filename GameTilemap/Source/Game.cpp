@@ -33,6 +33,8 @@ Game::~Game()
         delete pObject;
     }
 
+    delete m_pCamera;
+
     delete m_pPlayerController;
 
     delete m_pEventManager;
@@ -65,6 +67,12 @@ void Game::Init()
     m_pPlayer = new Player( this, m_pPlayerController, "Player", vec2(5,5), 
         m_pMeshes["Player"], m_pShaders["Basic"], m_pTextures["Test"], vec4::Green() );
     m_Objects.push_back( m_pPlayer );
+
+    m_Objects.push_back( new fw::GameObject(this, "BGThing", vec2(7,5), 
+        m_pMeshes["Player"], m_pShaders["Basic"], m_pTextures["Test"], vec4::Green()) );
+
+    m_pCamera = new fw::Camera( this, vec2(5,5), vec2(5,5) );
+    m_pCamera->SetObjectWeAreFollowing( m_pPlayer );
 }
 
 void Game::StartFrame(float deltaTime)
@@ -98,11 +106,14 @@ void Game::Update(float deltaTime)
     // Display framerate.
     ImGui::Text( "%0.2f", 1/deltaTime );
 
+
     for( auto it = m_Objects.begin(); it != m_Objects.end(); it++ )
     {
         fw::GameObject* pObject = *it;
         pObject->Update( deltaTime );
     }
+
+    m_pCamera->Update( deltaTime );
 
     // Debug imgui stuff.
     {
@@ -111,7 +122,7 @@ void Game::Update(float deltaTime)
             wglSwapInterval( m_VSyncEnabled ? 1 : 0 );
         }
     }
-        }
+}
 
 void Game::Draw()
 {
@@ -123,7 +134,7 @@ void Game::Draw()
     for( auto it = m_Objects.begin(); it != m_Objects.end(); it++ )
     {
         fw::GameObject* pObject = *it;
-        pObject->Draw();
+        pObject->Draw( m_pCamera );
     }
 
     m_pImGuiManager->EndFrame();

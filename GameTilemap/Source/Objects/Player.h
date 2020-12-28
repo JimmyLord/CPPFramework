@@ -11,6 +11,7 @@ public:
     virtual ~Player();
 
     virtual void Update(float deltaTime) override;
+    virtual void Draw(fw::Camera* pCamera) override;
 
     void AIState_Idle(float deltaTime);
     void AIState_Shaking(float deltaTime);
@@ -22,4 +23,6 @@ protected:
 
     float m_IdleTimer = 0.0f;
     float m_ShakingTimer = 0.0f;
+
+    vec2 m_ShakeOffset = vec2(0,0);
 };

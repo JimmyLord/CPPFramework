@@ -4,9 +4,10 @@
 
 namespace fw {
 
+class Camera;
+class GameCore;
 class Mesh;
 class ShaderProgram;
-class GameCore;
 class Texture;
 
 class GameObject
@@ -16,7 +17,7 @@ public:
     virtual ~GameObject();
 
     virtual void Update(float deltaTime);
-    virtual void Draw();
+    virtual void Draw(Camera* pCamera);
 
     std::string GetName() { return m_Name; }
     vec2 GetPosition() { return m_Position; }

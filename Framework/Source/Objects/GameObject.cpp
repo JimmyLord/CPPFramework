@@ -28,9 +28,9 @@ void GameObject::Update(float deltaTime)
 {
 }
 
-void GameObject::Draw()
+void GameObject::Draw(Camera* pCamera)
 {
-    m_pMesh->Draw( m_Position, m_pShader, m_pTexture, m_Color, m_UVScale, m_UVOffset );
+    m_pMesh->Draw( pCamera, m_Position, m_pShader, m_pTexture, m_Color, m_UVScale, m_UVOffset );
 }
 
 } // namespace fw

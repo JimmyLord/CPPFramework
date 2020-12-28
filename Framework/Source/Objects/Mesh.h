@@ -4,6 +4,7 @@
 
 namespace fw {
 
+class Camera;
 class ShaderProgram;
 class Texture;
 
@@ -37,7 +38,7 @@ public:
     void SetUniform4f(ShaderProgram* pShader, char* name, vec4 value);
     void SetUniform1i(ShaderProgram* pShader, char* name, int value);
 
-    void Draw(vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color, vec2 UVScale, vec2 UVOffset);
+    void Draw(Camera* pCamera, vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color, vec2 UVScale, vec2 UVOffset);
 
 protected:
     GLuint m_VBO = 0;

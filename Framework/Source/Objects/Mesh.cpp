@@ -1,9 +1,10 @@
 #include "FrameworkPCH.h"
 
 #include "Mesh.h"
+#include "Objects/Camera.h"
+#include "Objects/Texture.h"
 #include "Utility/ShaderProgram.h"
 #include "Utility/Helpers.h"
-#include "Objects/Texture.h"
 
 namespace fw {
 
@@ -63,7 +64,7 @@ void Mesh::SetUniform1i(ShaderProgram* pShader, char* name, int value)
     glUniform1i( loc, value );
 }
 
-void Mesh::Draw(vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color, vec2 UVScale, vec2 UVOffset)
+void Mesh::Draw(Camera* pCamera, vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color, vec2 UVScale, vec2 UVOffset)
 {
     glUseProgram( pShader->GetProgram() );
 
@@ -89,10 +90,14 @@ void Mesh::Draw(vec2 pos, ShaderProgram* pShader, Texture* pTexture, vec4 color,
     {
         SetUniform1f( pShader, "u_Time", (float)GetSystemTimeSinceGameStart() );
         SetUniform2f( pShader, "u_ObjectPos", pos );
+        SetUniform2f( pShader, "u_ObjectScale", vec2(1,1) );
         SetUniform4f( pShader, "u_Color", color );
 
         SetUniform2f( pShader, "u_UVScale", UVScale );
         SetUniform2f( pShader, "u_UVOffset", UVOffset );
+
+        SetUniform2f( pShader, "u_CameraPosition", pCamera->GetPosition() );
+        SetUniform2f( pShader, "u_ProjectionScale", pCamera->GetProjectionScale() );
 
         if( pTexture != nullptr )
         {

@@ -43,7 +43,7 @@ public:
     float GetLength() const { return sqrtf( x*x + y*y ); }
     float DistanceFrom(const vec2& o) const { return (*this - o).GetLength(); }
 
-    void Normalize() { float mag = GetLength(); x /= mag; y /= mag; }
+    void Normalize() { float mag = GetLength(); if( mag == 0 ) return; x /= mag; y /= mag; }
     vec2 GetNormalized() const { float mag = GetLength(); return vec2( x/mag, y/mag ); }
 
     float Dot(const vec2& o) const { return (x*o.x + y*o.y); }
@@ -63,6 +63,7 @@ public:
 
     static const vec4 Red()      { return vec4( 1.0f, 0.0f, 0.0f, 1.0f ); }
     static const vec4 Green()    { return vec4( 0.0f, 1.0f, 0.0f, 1.0f ); }
+    static const vec4 Yellow()   { return vec4( 1.0f, 1.0f, 0.0f, 1.0f ); }
     static const vec4 Blue()     { return vec4( 0.0f, 0.0f, 1.0f, 1.0f ); }
     static const vec4 DarkBlue() { return vec4( 0.0f, 0.0f, 0.3f, 1.0f ); }
     static const vec4 White()    { return vec4( 1.0f, 1.0f, 1.0f, 1.0f ); }

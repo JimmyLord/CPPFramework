@@ -29,6 +29,8 @@ protected:
     Player* m_pPlayer = nullptr;
     std::vector<fw::GameObject*> m_Objects;
 
+    fw::Camera* m_pCamera = nullptr;
+
     // Settings.
     bool m_VSyncEnabled = true;
 };
